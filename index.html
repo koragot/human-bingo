@@ -41,6 +41,71 @@
             margin-bottom: 40px;
         }
         
+        .info-section {
+            background: #f0f4f8;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            text-align: left;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .info-section h3 {
+            color: #4a5568;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+        
+        .info-section p, .info-section li {
+            color: #718096;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        
+        .info-section ul {
+            padding-left: 25px;
+        }
+        
+        .example-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 3px;
+            max-width: 250px;
+            margin: 20px auto;
+            background: #e2e8f0;
+            padding: 3px;
+            border-radius: 8px;
+        }
+        
+        .example-square {
+            aspect-ratio: 1;
+            background: white;
+            border: 1px solid #cbd5e0;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8em;
+        }
+        
+        .example-square.highlight {
+            background: #667eea;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .warning-text {
+            color: #e53e3e;
+            font-weight: bold;
+            background: #fff5f5;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #fc8181;
+            margin-top: 15px;
+        }
+        
         .setup-section {
             background: #f7fafc;
             border-radius: 15px;
@@ -393,6 +458,16 @@
             color: #4a5568;
         }
         
+        .error-message {
+            color: #e53e3e;
+            background: #fff5f5;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #fc8181;
+            margin-top: 10px;
+            display: none;
+        }
+        
         @keyframes bounce {
             from { transform: translateY(0px); }
             to { transform: translateY(-10px); }
@@ -419,7 +494,115 @@
         <!-- Welcome Page -->
         <div class="welcome-page" id="welcomePage">
             <h1 class="welcome-title">🎯 Human Bingo</h1>
-            <p class="welcome-subtitle">3 ประเภทคำถาม - 10 การ์ดที่แตกต่าง</p>
+            <p class="welcome-subtitle">3 ประเภทคำถาม - 30 การ์ดที่แตกต่าง</p>
+            
+            <div class="info-section">
+                <h3 id="howToPlayTitleWelcome">วิธีเล่น / How to Play</h3>
+                <ul id="howToPlayListWelcome">
+                    <li>พูดคุยกับเพื่อนๆ เพื่อหาคนที่ตรงกับคำอธิบายในแต่ละช่อง</li>
+                    <li>คลิกช่องและใส่ชื่อเพื่อนที่ตรงกับคำอธิบายนั้น</li>
+                    <li><strong style="color: #e53e3e;">เพื่อน 1 คนต่อ 1 ช่องเท่านั้น (เลือกให้ดี)</strong></li>
+                    <li>พยายามให้ได้ 5 ช่องในแถว (แนวนอน แนวตั้ง หรือแนวทแยง)</li>
+                    <li>คนแรกที่ได้ 5 ช่องในแถวชนะ!</li>
+                </ul>
+            </div>
+            
+            <div class="info-section">
+                <h3 id="winExampleTitle">ตัวอย่างการชนะ / Winning Examples</h3>
+                <p id="winExampleText">ทำให้ได้ 5 ช่องติดกันในแถวใดแถวหนึ่ง:</p>
+                <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px;">
+                    <div style="text-align: center;">
+                        <p id="horizontalText" style="font-size: 0.9em; margin-bottom: 5px;">แนวนอน</p>
+                        <div class="example-grid">
+                            <div class="example-square"></div>
+                            <div class="example-square"></div>
+                            <div class="example-square"></div>
+                            <div class="example-square"></div>
+                            <div class="example-square"></div>
+                            <div class="example-square highlight">✓</div>
+                            <div class="example-square highlight">✓</div>
+                            <div class="example-square highlight">✓</div>
+                            <div class="example-square highlight">✓</div>
+                            <div class="example-square highlight">✓</div>
+                            <div class="example-square"></div>
+                            <div class="example-square"></div>
+                            <div class="example-square"></div>
+                            <div class="example-square"></div>
+                            <div class="example-square"></div>
+                            <div class="example-square"></div>
+                            <div class="example-square"></div>
+                            <div class="example-square"></div>
+                            <div class="example-square"></div>
+                            <div class="example-square"></div>
+                            <div class="example-square"></div>
+                            <div class="example-square"></div>
+                            <div class="example-square"></div>
+                            <div class="example-square"></div>
+                            <div class="example-square"></div>
+                        </div>
+                    </div>
+                    <div style="text-align: center;">
+                        <p id="verticalText" style="font-size: 0.9em; margin-bottom: 5px;">แนวตั้ง</p>
+                        <div class="example-grid">
+                            <div class="example-square"></div>
+                            <div class="example-square"></div>
+                            <div class="example-square highlight">✓</div>
+                            <div class="example-square"></div>
+                            <div class="example-square"></div>
+                            <div class="example-square"></div>
+                            <div class="example-square"></div>
+                            <div class="example-square highlight">✓</div>
+                            <div class="example-square"></div>
+                            <div class="example-square"></div>
+                            <div class="example-square"></div>
+                            <div class="example-square"></div>
+                            <div class="example-square highlight">✓</div>
+                            <div class="example-square"></div>
+                            <div class="example-square"></div>
+                            <div class="example-square"></div>
+                            <div class="example-square"></div>
+                            <div class="example-square highlight">✓</div>
+                            <div class="example-square"></div>
+                            <div class="example-square"></div>
+                            <div class="example-square"></div>
+                            <div class="example-square"></div>
+                            <div class="example-square highlight">✓</div>
+                            <div class="example-square"></div>
+                            <div class="example-square"></div>
+                        </div>
+                    </div>
+                    <div style="text-align: center;">
+                        <p id="diagonalText" style="font-size: 0.9em; margin-bottom: 5px;">แนวทแยง</p>
+                        <div class="example-grid">
+                            <div class="example-square highlight">✓</div>
+                            <div class="example-square"></div>
+                            <div class="example-square"></div>
+                            <div class="example-square"></div>
+                            <div class="example-square"></div>
+                            <div class="example-square"></div>
+                            <div class="example-square highlight">✓</div>
+                            <div class="example-square"></div>
+                            <div class="example-square"></div>
+                            <div class="example-square"></div>
+                            <div class="example-square"></div>
+                            <div class="example-square"></div>
+                            <div class="example-square highlight">✓</div>
+                            <div class="example-square"></div>
+                            <div class="example-square"></div>
+                            <div class="example-square"></div>
+                            <div class="example-square"></div>
+                            <div class="example-square"></div>
+                            <div class="example-square highlight">✓</div>
+                            <div class="example-square"></div>
+                            <div class="example-square"></div>
+                            <div class="example-square"></div>
+                            <div class="example-square"></div>
+                            <div class="example-square"></div>
+                            <div class="example-square highlight">✓</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             
             <div class="setup-section">
                 <div class="language-selector">
@@ -516,6 +699,7 @@
                 <div id="howToPlayText">
                     • คลิกช่องเมื่อเจอเพื่อนที่ตรงกับคำอธิบาย<br>
                     • ใส่ชื่อเพื่อนในช่องนั้น<br>
+                    • <strong style="color: #e53e3e;">เพื่อน 1 คนต่อ 1 ช่องเท่านั้น (เลือกให้ดี)</strong><br>
                     • พยายามให้ได้ 5 ช่องในแถว (แนวนอน แนวตั้ง หรือแนวทแยง)<br>
                     • สนุกกับการรู้จักเพื่อนมากขึ้น! 🎉
                 </div>
@@ -532,8 +716,6 @@
             <div class="controls">
                 <button class="btn" onclick="generateNewCard()" id="newCardBtn">🎲 การ์ดใหม่</button>
                 <button class="btn" onclick="clearBoard()" id="clearBtn">🧹 ล้างกระดาน</button>
-                <button class="btn" onclick="printCard()" id="printBtn">🖨️ พิมพ์การ์ด</button>
-                <button class="btn" onclick="printAllCards()" id="printAllBtn">🖨️ พิมพ์การ์ดทั้งหมด</button>
             </div>
         </div>
     </div>
@@ -580,6 +762,7 @@
                 <option value="Other">Other (อื่นๆ)</option>
             </select>
             <input type="text" id="otherFriendNameInput" placeholder="ใส่ชื่อเพื่อน / Enter friend's name" style="width: 100%; padding: 10px; margin: 10px 0; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 1em; display: none;">
+            <div class="error-message" id="errorMessage"></div>
             <div class="modal-buttons">
                 <button class="modal-btn confirm" onclick="confirmFriendName()">ยืนยัน</button>
                 <button class="modal-btn cancel" onclick="closeFriendModal()">ยกเลิก</button>
@@ -593,51 +776,76 @@
         let currentBoard = [];
         let currentCardIndex = 0;
         let currentClickedSquare = null;
+        let usedFriends = new Set(); // เก็บชื่อเพื่อนที่ใช้แล้ว
         
         const translations = {
             en: {
                 gameTitle: "🎯 Human Bingo",
                 gameSubtitle: "3 Types of Questions",
                 playerWelcome: "Welcome, {name}!",
-                cardIndexText: "Card: {index}/10",
+                cardIndexText: "Card: {index}/30",
                 type1Legend: "Friend's Unique Traits (Diagonal)",
                 type2Legend: "Things We Have in Common (Middle)",
                 type3Legend: "General About Friends (Bottom Row)",
                 howToPlayTitle: "How to Play:",
-                howToPlayText: "• Click a square when you find a friend who matches<br>• Enter your friend's name in that square<br>• Try to get 5 in a row (horizontal, vertical, or diagonal)<br>• Have fun getting to know your friends better! 🎉",
+                howToPlayText: "• Click a square when you find a friend who matches<br>• Enter your friend's name in that square<br>• <strong style='color: #e53e3e;'>Only 1 friend per 1 square (choose wisely)</strong><br>• Try to get 5 in a row (horizontal, vertical, or diagonal)<br>• Have fun getting to know your friends better! 🎉",
                 newCardBtn: "🎲 New Card",
                 clearBtn: "🧹 Clear Board",
-                printBtn: "🖨️ Print Card",
-                printAllBtn: "🖨️ Print All Cards",
                 backBtn: "← Back to Setup",
                 winMessage: "🎉 BINGO! {name} Wins! 🎉",
                 modalTitle: "Enter Friend's Name",
                 modalQuestion: "Enter the name of the friend who matches this description:",
                 confirmBtn: "Confirm",
                 cancelBtn: "Cancel",
-                nameInputTitle: "Select your name"
+                nameInputTitle: "Select your name",
+                howToPlayTitleWelcome: "How to Play",
+                howToPlayListWelcome: [
+                    "Talk to friends to find people who match the descriptions",
+                    "Click a square and enter the friend's name who matches",
+                    "<strong style='color: #e53e3e;'>Only 1 friend per 1 square (choose wisely)</strong>",
+                    "Try to get 5 in a row (horizontal, vertical, or diagonal)",
+                    "First person to get 5 in a row wins!"
+                ],
+                winExampleTitle: "Winning Examples",
+                winExampleText: "Get 5 squares in a row:",
+                horizontalText: "Horizontal",
+                verticalText: "Vertical",
+                diagonalText: "Diagonal",
+                errorDuplicateFriend: "This friend is already selected in another square! Choose a different friend."
             },
             th: {
                 gameTitle: "🎯 ฮิวแมน บิงโก",
                 gameSubtitle: "3 ประเภทคำถาม",
                 playerWelcome: "ยินดีต้อนรับ {name}!",
-                cardIndexText: "การ์ดที่: {index}/10",
+                cardIndexText: "การ์ดที่: {index}/30",
                 type1Legend: "ลักษณะเฉพาะของเพื่อน (แนวทะแยง)",
                 type2Legend: "สิ่งที่เรามีเหมือนกัน (ส่วนกลาง)",
                 type3Legend: "เรื่องทั่วไปของเพื่อน (แถวล่าง)",
                 howToPlayTitle: "วิธีเล่น:",
-                howToPlayText: "• คลิกช่องเมื่อเจอเพื่อนที่ตรงกับคำอธิบาย<br>• ใส่ชื่อเพื่อนในช่องนั้น<br>• พยายามให้ได้ 5 ช่องในแถว (แนวนอน แนวตั้ง หรือแนวทแยง)<br>• สนุกกับการรู้จักเพื่อนมากขึ้น! 🎉",
+                howToPlayText: "• คลิกช่องเมื่อเจอเพื่อนที่ตรงกับคำอธิบาย<br>• ใส่ชื่อเพื่อนในช่องนั้น<br>• <strong style='color: #e53e3e;'>เพื่อน 1 คนต่อ 1 ช่องเท่านั้น (เลือกให้ดี)</strong><br>• พยายามให้ได้ 5 ช่องในแถว (แนวนอน แนวตั้ง หรือแนวทแยง)<br>• สนุกกับการรู้จักเพื่อนมากขึ้น! 🎉",
                 newCardBtn: "🎲 การ์ดใหม่",
                 clearBtn: "🧹 ล้างกระดาน",
-                printBtn: "🖨️ พิมพ์การ์ด",
-                printAllBtn: "🖨️ พิมพ์การ์ดทั้งหมด",
                 backBtn: "← กลับไปตั้งค่า",
                 winMessage: "🎉 บิงโก! {name} ชนะ! 🎉",
                 modalTitle: "ใส่ชื่อเพื่อน",
                 modalQuestion: "ใส่ชื่อเพื่อนที่ตรงกับคำอธิบายนี้:",
                 confirmBtn: "ยืนยัน",
                 cancelBtn: "ยกเลิก",
-                nameInputTitle: "เลือกชื่อของคุณ"
+                nameInputTitle: "เลือกชื่อของคุณ",
+                howToPlayTitleWelcome: "วิธีเล่น",
+                howToPlayListWelcome: [
+                    "พูดคุยกับเพื่อนๆ เพื่อหาคนที่ตรงกับคำอธิบายในแต่ละช่อง",
+                    "คลิกช่องและใส่ชื่อเพื่อนที่ตรงกับคำอธิบายนั้น",
+                    "<strong style='color: #e53e3e;'>เพื่อน 1 คนต่อ 1 ช่องเท่านั้น (เลือกให้ดี)</strong>",
+                    "พยายามให้ได้ 5 ช่องในแถว (แนวนอน แนวตั้ง หรือแนวทแยง)",
+                    "คนแรกที่ได้ 5 ช่องในแถวชนะ!"
+                ],
+                winExampleTitle: "ตัวอย่างการชนะ",
+                winExampleText: "ทำให้ได้ 5 ช่องติดกันในแถวใดแถวหนึ่ง:",
+                horizontalText: "แนวนอน",
+                verticalText: "แนวตั้ง",
+                diagonalText: "แนวทแยง",
+                errorDuplicateFriend: "เพื่อนคนนี้ถูกเลือกในช่องอื่นแล้ว! กรุณาเลือกเพื่อนคนอื่น"
             }
         };
 
@@ -757,12 +965,13 @@
             }
         };
 
-        // 10 การ์ดที่กำหนดไว้ล่วงหน้า (ปรับให้ตรงตามความต้องการ)
+        // 30 การ์ดที่กำหนดไว้ล่วงหน้า (10 การ์ดเดิม + 20 การ์ดที่สลับ type2 และ type3)
         const predefinedCards = [
+            // การ์ดที่ 1-10 (เดิม)
             {
-                diagonal: [14, 18, 15, 0, 1], // ต้องมี: Haven't DM(14), Slack pic(18), Trip 2025(15), + อื่นๆ
-                middle: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], // type2 16 ช่อง
-                bottom: [0, 1, 2, 3] // type3 4 ช่อง
+                diagonal: [14, 18, 15, 0, 1],
+                middle: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+                bottom: [0, 1, 2, 3]
             },
             {
                 diagonal: [14, 19, 16, 2, 3],
@@ -808,6 +1017,108 @@
                 diagonal: [14, 19, 15, 3, 6],
                 middle: [9, 10, 11, 12, 13, 14, 15, 16, 17, 0, 1, 2, 3, 4, 5, 6],
                 bottom: [1, 2, 3, 4]
+            },
+            // การ์ดที่ 11-20 (สลับ type2 และ type3 จากการ์ด 1-10)
+            {
+                diagonal: [14, 18, 15, 0, 1],
+                middle: [16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1],
+                bottom: [4, 3, 2, 1]
+            },
+            {
+                diagonal: [14, 19, 16, 2, 3],
+                middle: [17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2],
+                bottom: [5, 4, 3, 2]
+            },
+            {
+                diagonal: [14, 20, 17, 4, 5],
+                middle: [0, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3],
+                bottom: [6, 5, 4, 3]
+            },
+            {
+                diagonal: [14, 21, 15, 6, 7],
+                middle: [1, 0, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4],
+                bottom: [7, 6, 5, 4]
+            },
+            {
+                diagonal: [14, 18, 16, 8, 9],
+                middle: [2, 1, 0, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5],
+                bottom: [0, 7, 6, 5]
+            },
+            {
+                diagonal: [14, 19, 17, 10, 11],
+                middle: [3, 2, 1, 0, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6],
+                bottom: [1, 0, 7, 6]
+            },
+            {
+                diagonal: [14, 20, 15, 12, 13],
+                middle: [4, 3, 2, 1, 0, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7],
+                bottom: [2, 1, 0, 7]
+            },
+            {
+                diagonal: [14, 21, 16, 0, 2],
+                middle: [5, 4, 3, 2, 1, 0, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8],
+                bottom: [3, 2, 1, 0]
+            },
+            {
+                diagonal: [14, 18, 17, 1, 4],
+                middle: [6, 5, 4, 3, 2, 1, 0, 17, 16, 15, 14, 13, 12, 11, 10, 9],
+                bottom: [4, 3, 2, 1]
+            },
+            {
+                diagonal: [14, 19, 15, 3, 6],
+                middle: [7, 6, 5, 4, 3, 2, 1, 0, 17, 16, 15, 14, 13, 12, 11, 10],
+                bottom: [5, 4, 3, 2]
+            },
+            // การ์ดที่ 21-30 (สลับ type2 และ type3 อีกแบบ)
+            {
+                diagonal: [14, 18, 15, 0, 1],
+                middle: [10, 11, 12, 13, 14, 15, 16, 17, 0, 1, 2, 3, 4, 5, 6, 7],
+                bottom: [7, 0, 1, 2]
+            },
+            {
+                diagonal: [14, 19, 16, 2, 3],
+                middle: [11, 12, 13, 14, 15, 16, 17, 0, 1, 2, 3, 4, 5, 6, 7, 8],
+                bottom: [0, 1, 2, 3]
+            },
+            {
+                diagonal: [14, 20, 17, 4, 5],
+                middle: [12, 13, 14, 15, 16, 17, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+                bottom: [1, 2, 3, 4]
+            },
+            {
+                diagonal: [14, 21, 15, 6, 7],
+                middle: [13, 14, 15, 16, 17, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                bottom: [2, 3, 4, 5]
+            },
+            {
+                diagonal: [14, 18, 16, 8, 9],
+                middle: [14, 15, 16, 17, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+                bottom: [3, 4, 5, 6]
+            },
+            {
+                diagonal: [14, 19, 17, 10, 11],
+                middle: [15, 16, 17, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+                bottom: [4, 5, 6, 7]
+            },
+            {
+                diagonal: [14, 20, 15, 12, 13],
+                middle: [16, 17, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
+                bottom: [5, 6, 7, 0]
+            },
+            {
+                diagonal: [14, 21, 16, 0, 2],
+                middle: [17, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
+                bottom: [6, 7, 0, 1]
+            },
+            {
+                diagonal: [14, 18, 17, 1, 4],
+                middle: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+                bottom: [7, 0, 1, 2]
+            },
+            {
+                diagonal: [14, 19, 15, 3, 6],
+                middle: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+                bottom: [0, 1, 2, 3]
             }
         ];
 
@@ -866,7 +1177,9 @@
             document.getElementById('welcomePage').style.display = 'none';
             document.getElementById('gamePage').style.display = 'block';
             
-            currentCardIndex = 0;
+            // สุ่มการ์ดเริ่มต้น
+            currentCardIndex = Math.floor(Math.random() * 30);
+            usedFriends.clear(); // ล้างรายชื่อเพื่อนที่ใช้แล้ว
             updateLanguage();
             generateBoard();
         }
@@ -890,14 +1203,22 @@
             document.getElementById('howToPlayText').innerHTML = t.howToPlayText;
             document.getElementById('newCardBtn').textContent = t.newCardBtn;
             document.getElementById('clearBtn').textContent = t.clearBtn;
-            document.getElementById('printBtn').textContent = t.printBtn;
-            document.getElementById('printAllBtn').textContent = t.printAllBtn;
             document.getElementById('backBtn').textContent = t.backBtn;
             document.getElementById('modalTitle').textContent = t.modalTitle;
             document.getElementById('modalQuestion').textContent = t.modalQuestion;
             document.querySelector('.modal-btn.confirm').textContent = t.confirmBtn;
             document.querySelector('.modal-btn.cancel').textContent = t.cancelBtn;
             document.getElementById('nameInputTitle').textContent = t.nameInputTitle;
+            
+            // Update welcome page
+            document.getElementById('howToPlayTitleWelcome').textContent = t.howToPlayTitleWelcome;
+            const howToPlayList = document.getElementById('howToPlayListWelcome');
+            howToPlayList.innerHTML = t.howToPlayListWelcome.map(item => `<li>${item}</li>`).join('');
+            document.getElementById('winExampleTitle').textContent = t.winExampleTitle;
+            document.getElementById('winExampleText').textContent = t.winExampleText;
+            document.getElementById('horizontalText').textContent = t.horizontalText;
+            document.getElementById('verticalText').textContent = t.verticalText;
+            document.getElementById('diagonalText').textContent = t.diagonalText;
         }
 
         function generateBoard() {
@@ -968,7 +1289,8 @@
         }
 
         function generateNewCard() {
-            currentCardIndex = (currentCardIndex + 1) % 10;
+            currentCardIndex = (currentCardIndex + 1) % 30;
+            usedFriends.clear(); // ล้างรายชื่อเพื่อนที่ใช้แล้ว
             document.getElementById('winMessage').style.display = 'none';
             updateLanguage(); // อัพเดท card index
             generateBoard();
@@ -980,6 +1302,10 @@
             
             if (square.classList.contains('clicked')) {
                 // ถ้าคลิกแล้ว ให้ลบการคลิก
+                const friendName = square.querySelector('.friend-name').textContent;
+                if (friendName) {
+                    usedFriends.delete(friendName); // ลบชื่อออกจากรายการที่ใช้แล้ว
+                }
                 square.classList.remove('clicked');
                 square.querySelector('.friend-name').textContent = '';
             } else {
@@ -989,6 +1315,7 @@
                 document.getElementById('friendNameInput').value = '';
                 document.getElementById('otherFriendNameInput').value = '';
                 document.getElementById('otherFriendNameInput').style.display = 'none';
+                document.getElementById('errorMessage').style.display = 'none';
                 document.getElementById('friendNameInput').focus();
             }
             
@@ -1016,6 +1343,8 @@
         function confirmFriendName() {
             const friendNameInput = document.getElementById('friendNameInput');
             const otherFriendNameInput = document.getElementById('otherFriendNameInput');
+            const errorMessage = document.getElementById('errorMessage');
+            const t = translations[selectedLanguage];
             
             let friendName = '';
             if (friendNameInput.value === "Other") {
@@ -1026,9 +1355,17 @@
             
             if (!friendName || !currentClickedSquare) return;
             
+            // ตรวจสอบว่าชื่อเพื่อนถูกใช้แล้วหรือไม่
+            if (usedFriends.has(friendName)) {
+                errorMessage.textContent = t.errorDuplicateFriend;
+                errorMessage.style.display = 'block';
+                return;
+            }
+            
             const { square } = currentClickedSquare;
             square.classList.add('clicked');
             square.querySelector('.friend-name').textContent = friendName;
+            usedFriends.add(friendName); // เพิ่มชื่อเข้ารายการที่ใช้แล้ว
             
             closeFriendModal();
             checkForWin();
@@ -1080,180 +1417,8 @@
                 square.classList.remove('clicked');
                 square.querySelector('.friend-name').textContent = '';
             });
+            usedFriends.clear(); // ล้างรายชื่อเพื่อนที่ใช้แล้ว
             document.getElementById('winMessage').style.display = 'none';
-        }
-
-        function printCard() {
-            const printWindow = window.open('', '_blank');
-            const currentHTML = document.documentElement.outerHTML;
-            printWindow.document.write(currentHTML);
-            printWindow.document.title = `Bingo Card ${currentCardIndex + 1} - ${playerName}`;
-            printWindow.print();
-        }
-
-        function printAllCards() {
-            const t = translations[selectedLanguage];
-            const questions = questionTypes[selectedLanguage];
-            
-            let allCardsHTML = `<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Bingo Cards - ${playerName}</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background: white;
-        }
-        .card-container {
-            page-break-after: always;
-            margin-bottom: 30px;
-        }
-        .card-container:last-child {
-            page-break-after: auto;
-        }
-        .card-header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .card-title {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        .card-info {
-            font-size: 16px;
-            color: #666;
-            margin-bottom: 5px;
-        }
-        .legend {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 20px;
-            font-size: 12px;
-        }
-        .legend-item {
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-weight: bold;
-        }
-        .legend-type1 { background: #fef5e7; color: #c05621; }
-        .legend-type2 { background: #e6fffa; color: #285e61; }
-        .legend-type3 { background: #ebf8ff; color: #2a69ac; }
-        .bingo-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 2px;
-            max-width: 600px;
-            margin: 0 auto;
-            border: 2px solid #333;
-        }
-        .bingo-square {
-            border: 1px solid #333;
-            padding: 10px;
-            text-align: center;
-            min-height: 80px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            font-size: 10px;
-            font-weight: 500;
-        }
-        .square-index {
-            font-size: 8px;
-            color: #666;
-            margin-bottom: 3px;
-        }
-        .square-type1 { background: #fef5e7; }
-        .square-type2 { background: #e6fffa; }
-        .square-type3 { background: #ebf8ff; }
-        @media print {
-            .card-container {
-                page-break-after: always;
-            }
-        }
-    </style>
-</head>
-<body>`;
-
-            // สร้าง HTML สำหรับทุกการ์ด
-            for (let cardIndex = 0; cardIndex < 10; cardIndex++) {
-                const card = predefinedCards[cardIndex];
-                
-                allCardsHTML += `
-                <div class="card-container">
-                    <div class="card-header">
-                        <div class="card-title">${t.gameTitle}</div>
-                        <div class="card-info">${t.playerWelcome.replace('{name}', playerName)}</div>
-                        <div class="card-info">${t.cardIndexText.replace('{index}', cardIndex + 1)}</div>
-                    </div>
-                    
-                    <div class="legend">
-                        <div class="legend-item legend-type1">🔶 ${t.type1Legend}</div>
-                        <div class="legend-item legend-type2">🔷 ${t.type2Legend}</div>
-                        <div class="legend-item legend-type3">🔹 ${t.type3Legend}</div>
-                    </div>
-                    
-                    <div class="bingo-grid">`;
-                
-                // สร้างช่องบิงโก
-                const boardItems = new Array(25);
-                const boardTypes = new Array(25);
-                const boardIndexes = new Array(25);
-                
-                // แนวทะแยง
-                const diagonalPositions = [0, 6, 12, 18, 24];
-                diagonalPositions.forEach((pos, i) => {
-                    const questionIndex = card.diagonal[i] % questions.type1.length;
-                    boardItems[pos] = questions.type1[questionIndex];
-                    boardTypes[pos] = 'type1';
-                    boardIndexes[pos] = questionIndex + 1;
-                });
-                
-                // ส่วนกลาง
-                const middlePositions = [1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, 19];
-                middlePositions.forEach((pos, i) => {
-                    const questionIndex = card.middle[i] % questions.type2.length;
-                    boardItems[pos] = questions.type2[questionIndex];
-                    boardTypes[pos] = 'type2';
-                    boardIndexes[pos] = questionIndex + 1;
-                });
-                
-                // แถวล่าง
-                const bottomPositions = [20, 21, 22, 23];
-                bottomPositions.forEach((pos, i) => {
-                    const questionIndex = card.bottom[i] % questions.type3.length;
-                    boardItems[pos] = questions.type3[questionIndex];
-                    boardTypes[pos] = 'type3';
-                    boardIndexes[pos] = questionIndex + 1;
-                });
-                
-                // เพิ่มช่องลงใน HTML
-                boardItems.forEach((item, index) => {
-                    allCardsHTML += `
-                        <div class="bingo-square square-${boardTypes[index]}">
-                            <div class="square-index">#${boardIndexes[index]}</div>
-                            <div>${item}</div>
-                        </div>`;
-                });
-                
-                allCardsHTML += `
-                    </div>
-                </div>`;
-            }
-            
-            allCardsHTML += `
-</body>
-</html>`;
-
-            const printWindow = window.open('', '_blank');
-            printWindow.document.write(allCardsHTML);
-            printWindow.document.title = `All Bingo Cards - ${playerName}`;
-            printWindow.print();
         }
 
         // Event listeners
