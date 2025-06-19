@@ -1252,14 +1252,43 @@
             });
             
             // แถวล่างสุด ยกเว้นแนวทะแยง (4 ช่อง) - ใช้ type3
-            const bottomPositions = [20, 21, 22, 23];
-            bottomPositions.forEach((pos, i) => {
-                const questionIndex = card.bottom[i] % questions.type3.length;
-                boardItems[pos] = questions.type3[questionIndex];
-                boardTypes[pos] = 'type3';
-                boardIndexes[pos] = questionIndex + 1;
-            });
+            // const bottomPositions = [20, 21, 22, 23];
+            // bottomPositions.forEach((pos, i) => {
+            //     const questionIndex = card.bottom[i] % questions.type3.length;
+            //     boardItems[pos] = questions.type3[questionIndex];
+            //     boardTypes[pos] = 'type3';
+            //     boardIndexes[pos] = questionIndex + 1;
+            // });
             
+            // หาตำแหน่งทั้งหมดที่ไม่ใช่แนวทะแยง (0,6,12,18,24)
+const allNonDiagonalPositions = [];
+for (let i = 0; i < 25; i++) {
+    if (![0, 6, 12, 18, 24].includes(i)) {
+        allNonDiagonalPositions.push(i);
+    }
+}
+
+// สุ่มตำแหน่ง 4 ช่องจาก non-diagonal สำหรับ type3
+const shuffled = allNonDiagonalPositions.sort(() => 0.5 - Math.random());
+const type3Positions = shuffled.slice(0, 4);
+const type2Positions = shuffled.slice(4); // ที่เหลือจะใช้ type2
+
+// กำหนดคำถาม type3 ใน 4 ช่องที่สุ่มได้
+type3Positions.forEach((pos, i) => {
+    const questionIndex = card.bottom[i] % questions.type3.length;
+    boardItems[pos]  = questions.type3[questionIndex];
+    boardTypes[pos]  = 'type3';
+    boardIndexes[pos]= questionIndex + 1;
+});
+
+// ส่วนที่เหลือ ให้ใช้คำถาม type2
+type2Positions.forEach((pos, i) => {
+    const questionIndex = card.middle[i] % questions.type2.length;
+    boardItems[pos]  = questions.type2[questionIndex];
+    boardTypes[pos]  = 'type2';
+    boardIndexes[pos]= questionIndex + 1;
+});
+
             currentBoard = boardItems;
 
             // สร้าง DOM elements
