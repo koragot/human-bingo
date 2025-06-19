@@ -605,16 +605,14 @@
             </div>
             
             <div class="setup-section">
-                <div class="language-selector">
-                    <h3 id="langSelectorTitle">Choose your language / เลือกภาษา</h3>
-                    <div class="language-buttons">
-                        <div class="lang-btn" onclick="selectLanguage('en')">
-                            🇺🇸 English
-                        </div>
-                        <div class="lang-btn" onclick="selectLanguage('th')">
-                            🇹🇭 ภาษาไทย
-                        </div>
-                    </div>
+<!--                 -<div class="lang-btn" onclick="selectLanguage('en')"> -->
+<div class="lang-btn" onclick="selectLanguage('en', this)">
+     🇺🇸 English
+ </div>
+<!-- -<div class="lang-btn" onclick="selectLanguage('th')"> -->
+<div class="lang-btn" onclick="selectLanguage('th', this)">
+     🇹🇭 ภาษาไทย
+ </div>
                 </div>
                 
                 <div class="name-input-section">
@@ -1126,12 +1124,25 @@
             }
         ];
 
-        function selectLanguage(lang) {
-            selectedLanguage = lang;
-            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            checkCanStart();
-        }
+        // function selectLanguage(lang) {
+        //     selectedLanguage = lang;
+        //     document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+        //     event.target.classList.add('active');
+        //     checkCanStart();
+        // }
+
+//         -    function selectLanguage(lang) {
+// -        selectedLanguage = lang;
+// -        document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+// -        event.target.classList.add('active');
+// -        checkCanStart();
+// -    }
+     function selectLanguage(lang, btnEl) {
+         selectedLanguage = lang;
+         document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+         btnEl.classList.add('active');
+         checkCanStart();
+     }
 
         function checkCanStart() {
             const nameInput = document.getElementById('playerNameInput');
