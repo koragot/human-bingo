@@ -717,6 +717,12 @@
                 <button class="btn" onclick="generateNewCard()" id="newCardBtn">🎲 การ์ดใหม่</button>
                 <button class="btn" onclick="clearBoard()" id="clearBtn">🧹 ล้างกระดาน</button>
             </div>
+
+            <div id="consecCount"
+                style="text-align:center; font-size:1.2em; margin-top:10px;">
+                Consecutive Wins: 0
+            </div>
+
         </div>
     </div>
 
@@ -777,6 +783,7 @@
         let currentCardIndex = 0;
         let currentClickedSquare = null;
         let usedFriends = new Set(); // เก็บชื่อเพื่อนที่ใช้แล้ว
+        let consecutiveWins = 0; // นับจำนวนบิงโกได้ต่อเนื่อง
         
         const translations = {
             en: {
@@ -1319,7 +1326,14 @@ type2Positions.forEach((pos, i) => {
 
         function generateNewCard() {
             currentCardIndex = (currentCardIndex + 1) % 30;
-            usedFriends.clear(); // ล้างรายชื่อเพื่อนที่ใช้แล้ว
+            // usedFriends.clear(); // ล้างรายชื่อเพื่อนที่ใช้แล้ว
+
+             usedFriends.clear(); // ล้างรายชื่อเพื่อนที่ใช้แล้ว :contentReference[oaicite:2]{index=2}
+             // ถ้าเริ่มใหม่ ให้รีเซ็ตเคาน์เตอร์ต่อเนื่อง
+             consecutiveWins = 0;
+             document.getElementById('consecCount').textContent = 'Consecutive Wins: 0';
+             document.getElementById('winMessage').style.display = 'none';
+
             document.getElementById('winMessage').style.display = 'none';
             updateLanguage(); // อัพเดท card index
             generateBoard();
@@ -1432,13 +1446,38 @@ type2Positions.forEach((pos, i) => {
             const winMessage = document.getElementById('winMessage');
             const t = translations[selectedLanguage];
             winMessage.innerHTML = t.winMessage.replace('{name}', playerName);
-            winMessage.style.display = 'block';
+            // winMessage.style.display = 'block';
+
+            // เพิ่มการนับบิงโกต่อเนื่อง และอัปเดต UI
+             consecutiveWins++;
+
+             const countEl = document.getElementById('consecCount');
+             if (countEl) {
+                 countEl.textContent = `Consecutive Wins: ${consecutiveWins}`;
+             }
+             winMessage.style.display = 'block'; :contentReference[oaicite:1]{index=1}
+
+
             winMessage.classList.add('celebration');
             
             setTimeout(() => {
                 winMessage.classList.remove('celebration');
             }, 3000);
         }
+
+// @@         function showWin() {
+-            winMessage.style.display = 'block';
++            // เพิ่มการนับบิงโกต่อเนื่อง และอัปเดต UI
++            consecutiveWins++;
+
++            const countEl = document.getElementById('consecCount');
++            if (countEl) {
++                countEl.textContent = `Consecutive Wins: ${consecutiveWins}`;
++            }
++            winMessage.style.display = 'block'; :contentReference[oaicite:1]{index=1}
+
+// element #consecCount
+
 
         function clearBoard() {
             const squares = document.querySelectorAll('.bingo-square');
