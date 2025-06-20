@@ -1347,6 +1347,18 @@
             generateBoard();
         }
 
+
+//         @@ function toggleSquare(index) {
+// -        currentClickedSquare = { square, index };
+// -        document.getElementById('friendModal').style.display = 'block';
+// +        currentClickedSquare = { square, index };
+// +        // แทรก: แสดงคำถามที่ถูกคลิกใน modal พร้อมขยายขนาดข้อความ
+// +        const modalQ = document.getElementById('modalQuestion');
+// +        modalQ.textContent = currentBoard[index];
+// +        modalQ.style.fontSize   = '1.4em';
+// +        modalQ.style.fontWeight = 'bold';
+// +        document.getElementById('friendModal').style.display = 'block';
+            
         function toggleSquare(index) {
             const squares = document.querySelectorAll('.bingo-square');
             const square = squares[index];
@@ -1364,8 +1376,16 @@
                 recheckBingos();
             } else {
                 // ถ้ายังไม่คลิก ให้เปิด modal ใส่ชื่อเพื่อน
-                currentClickedSquare = { square, index };
-                document.getElementById('friendModal').style.display = 'block';
+                // currentClickedSquare = { square, index };
+                // document.getElementById('friendModal').style.display = 'block';
+         currentClickedSquare = { square, index };
+         // แทรก: แสดงคำถามที่ถูกคลิกใน modal พร้อมขยายขนาดข้อความ
+         const modalQ = document.getElementById('modalQuestion');
+         modalQ.textContent = currentBoard[index];
+         modalQ.style.fontSize   = '1.4em';
+         modalQ.style.fontWeight = 'bold';
+         document.getElementById('friendModal').style.display = 'block';
+                
                 document.getElementById('friendNameInput').value = '';
                 document.getElementById('otherFriendNameInput').value = '';
                 document.getElementById('otherFriendNameInput').style.display = 'none';
