@@ -1379,56 +1379,64 @@
 // +        document.getElementById('otherFriendNameInput').style.display = 'none';
 // +        document.getElementById('errorMessage').style.display = 'none';
 // +        friendSelect.focus();
-    
-        function toggleSquare(index) {
-            const squares = document.querySelectorAll('.bingo-square');
-            const square = squares[index];
-            
-            if (square.classList.contains('clicked')) {
-                // ถ้าคลิกแล้ว ให้ลบการคลิก
-                const friendName = square.querySelector('.friend-name').textContent;
-                if (friendName) {
-                    usedFriends.delete(friendName); // ลบชื่อออกจากรายการที่ใช้แล้ว
-                }
-                square.classList.remove('clicked');
-                square.querySelector('.friend-name').textContent = '';
-                
-                // ตรวจสอบใหม่ว่ายังมี bingo อยู่หรือไม่
-                recheckBingos();
-            } else {
-                // ถ้ายังไม่คลิก ให้เปิด modal ใส่ชื่อเพื่อน
-                // currentClickedSquare = { square, index };
-                // document.getElementById('friendModal').style.display = 'block';
-         // currentClickedSquare = { square, index };
-         // // แทรก: แสดงคำถามที่ถูกคลิกใน modal พร้อมขยายขนาดข้อความ
-         // const modalQ = document.getElementById('modalQuestion');
-         // modalQ.textContent = currentBoard[index];
-         // modalQ.style.fontSize   = '1.4em';
-         // modalQ.style.fontWeight = 'bold';
-         // document.getElementById('friendModal').style.display = 'block';
-                
-         //        document.getElementById('friendNameInput').value = '';
-         //        document.getElementById('otherFriendNameInput').value = '';
-         //        document.getElementById('otherFriendNameInput').style.display = 'none';
-         //        document.getElementById('errorMessage').style.display = 'none';
-         //        document.getElementById('friendNameInput').focus();
 
-         currentClickedSquare = { square, index };
-         // ปิดการใช้งานตัวเลือกชื่อของตัวเองใน modal
-         const friendSelect = document.getElementById('friendNameInput');
-         Array.from(friendSelect.options).forEach(opt => {
-             opt.disabled = (opt.value === playerName);
-         });
-         document.getElementById('friendModal').style.display = 'block';
-         // รีเซ็ตค่าเดิม
-         friendSelect.value = '';
-         document.getElementById('otherFriendNameInput').value = '';
-         document.getElementById('otherFriendNameInput').style.display = 'none';
-         document.getElementById('errorMessage').style.display = 'none';
-         friendSelect.focus();
-                
-            }
+
+//         @@ function toggleSquare(index) {
+// -        currentClickedSquare = { square, index };
+// -        document.getElementById('friendModal').style.display = 'block';
+// +        currentClickedSquare = { square, index };
+// +        // แทรก: แสดงคำถามที่ถูกคลิกใน modal พร้อมขยายขนาดข้อความ
+// +        const modalQ = document.getElementById('modalQuestion');
+// +        modalQ.textContent = currentBoard[index];
+// +        modalQ.style.fontSize   = '1.4em';
+// +        modalQ.style.fontWeight = 'bold';
+// +        document.getElementById('friendModal').style.display = 'block';
+    
+function toggleSquare(index) {
+    const squares = document.querySelectorAll('.bingo-square');
+    const square = squares[index];
+
+    if (square.classList.contains('clicked')) {
+        // ถ้าคลิกแล้ว ให้ลบการคลิก
+        const friendName = square.querySelector('.friend-name').textContent;
+        if (friendName) {
+            usedFriends.delete(friendName); // ลบชื่อออกจากรายการที่ใช้แล้ว
         }
+        square.classList.remove('clicked');
+        square.querySelector('.friend-name').textContent = '';
+
+        // ตรวจสอบใหม่ว่ายังมี bingo อยู่หรือไม่
+        recheckBingos();
+    } else {
+        // ถ้ายังไม่คลิก ให้เปิด modal ใส่ชื่อเพื่อน
+        currentClickedSquare = { square, index };
+
+        // แสดงคำถามที่ถูกคลิกใน modal พร้อมขยายขนาดข้อความ
+        const modalQ = document.getElementById('modalQuestion');
+        modalQ.textContent = currentBoard[index];  // ใส่คำถามที่ถูกคลิก
+        modalQ.style.fontSize   = '1.4em';         // ขยายขนาดตัวอักษร
+        modalQ.style.fontWeight = 'bold';          // ทำให้ตัวหนา
+
+        // ปิดการใช้งานตัวเลือกชื่อของตัวเองใน modal
+        const friendSelect = document.getElementById('friendNameInput');
+        Array.from(friendSelect.options).forEach(opt => {
+            opt.disabled = (opt.value === playerName);  // ไม่ให้เลือกชื่อของตัวเอง
+        });
+
+        document.getElementById('friendModal').style.display = 'block';
+
+        // รีเซ็ตค่าเดิม
+        friendSelect.value = '';
+        document.getElementById('otherFriendNameInput').value = '';
+        document.getElementById('otherFriendNameInput').style.display = 'none';
+        document.getElementById('errorMessage').style.display = 'none';
+
+        // ตั้งค่า focus ไปที่ dropdown
+        friendSelect.focus();
+    }
+}
+
+
         
         function recheckBingos() {
             bingoCount = 0;
