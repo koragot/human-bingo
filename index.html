@@ -384,6 +384,30 @@
             border-left: 5px solid #667eea;
         }
         
+        .bingo-counter {
+            text-align: center;
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            color: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+            font-weight: bold;
+            display: none;
+            animation: slideIn 0.5s ease;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
         .win-message {
             text-align: center;
             font-size: 1.5em;
@@ -391,6 +415,14 @@
             color: #48bb78;
             margin-top: 20px;
             display: none;
+        }
+        
+        .win-message.multiple {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
         
         .celebration {
@@ -679,6 +711,10 @@
                 <strong id="playerWelcome">Welcome, Player!</strong>
             </div>
             
+            <div class="bingo-counter" id="bingoCounter">
+                <span id="bingoCountText">BINGO x 0</span>
+            </div>
+            
             <div class="legend">
                 <div class="legend-item legend-type1">
                     <span>🔶</span>
@@ -777,6 +813,8 @@
         let currentCardIndex = 0;
         let currentClickedSquare = null;
         let usedFriends = new Set(); // เก็บชื่อเพื่อนที่ใช้แล้ว
+        let bingoCount = 0; // นับจำนวน bingo
+        let completedLines = new Set(); // เก็บเส้นที่ bingo แล้ว
         
         const translations = {
             en: {
@@ -793,6 +831,8 @@
                 clearBtn: "🧹 Clear Board",
                 backBtn: "← Back to Setup",
                 winMessage: "🎉 BINGO! {name} Wins! 🎉",
+                bingoCountText: "BINGO x {count}",
+                multipleBingoText: "🎉 {count} BINGO! Amazing! 🎉",
                 modalTitle: "Enter Friend's Name",
                 modalQuestion: "Enter the name of the friend who matches this description:",
                 confirmBtn: "Confirm",
@@ -827,6 +867,8 @@
                 clearBtn: "🧹 ล้างกระดาน",
                 backBtn: "← กลับไปตั้งค่า",
                 winMessage: "🎉 บิงโก! {name} ชนะ! 🎉",
+                bingoCountText: "บิงโก x {count}",
+                multipleBingoText: "🎉 {count} บิงโก! สุดยอด! 🎉",
                 modalTitle: "ใส่ชื่อเพื่อน",
                 modalQuestion: "ใส่ชื่อเพื่อนที่ตรงกับคำอธิบายนี้:",
                 confirmBtn: "ยืนยัน",
@@ -1180,6 +1222,8 @@
             // สุ่มการ์ดเริ่มต้น
             currentCardIndex = Math.floor(Math.random() * 30);
             usedFriends.clear(); // ล้างรายชื่อเพื่อนที่ใช้แล้ว
+            bingoCount = 0; // รีเซ็ตจำนวน bingo
+            completedLines.clear(); // ล้างเส้นที่ bingo แล้ว
             updateLanguage();
             generateBoard();
         }
@@ -1187,6 +1231,7 @@
         function goBack() {
             document.getElementById('gamePage').style.display = 'none';
             document.getElementById('welcomePage').style.display = 'block';
+            document.getElementById('bingoCounter').style.display = 'none';
         }
 
         function updateLanguage() {
@@ -1224,6 +1269,9 @@
         function generateBoard() {
             const grid = document.getElementById('bingoGrid');
             grid.innerHTML = '';
+            
+            // ซ่อน bingo counter ตอนเริ่มต้น
+            document.getElementById('bingoCounter').style.display = 'none';
             
             const card = predefinedCards[currentCardIndex];
             const questions = questionTypes[selectedLanguage];
@@ -1291,7 +1339,10 @@
         function generateNewCard() {
             currentCardIndex = (currentCardIndex + 1) % 30;
             usedFriends.clear(); // ล้างรายชื่อเพื่อนที่ใช้แล้ว
+            bingoCount = 0; // รีเซ็ตจำนวน bingo
+            completedLines.clear(); // ล้างเส้นที่ bingo แล้ว
             document.getElementById('winMessage').style.display = 'none';
+            updateBingoCounter();
             updateLanguage(); // อัพเดท card index
             generateBoard();
         }
@@ -1308,6 +1359,9 @@
                 }
                 square.classList.remove('clicked');
                 square.querySelector('.friend-name').textContent = '';
+                
+                // ตรวจสอบใหม่ว่ายังมี bingo อยู่หรือไม่
+                recheckBingos();
             } else {
                 // ถ้ายังไม่คลิก ให้เปิด modal ใส่ชื่อเพื่อน
                 currentClickedSquare = { square, index };
@@ -1318,8 +1372,17 @@
                 document.getElementById('errorMessage').style.display = 'none';
                 document.getElementById('friendNameInput').focus();
             }
-            
+        }
+        
+        function recheckBingos() {
+            bingoCount = 0;
+            completedLines.clear();
             checkForWin();
+            
+            if (bingoCount === 0) {
+                document.getElementById('winMessage').style.display = 'none';
+                updateBingoCounter();
+            }
         }
 
         function handleFriendNameSelection() {
@@ -1374,41 +1437,76 @@
         function checkForWin() {
             const squares = document.querySelectorAll('.bingo-square');
             const clicked = Array.from(squares).map(sq => sq.classList.contains('clicked'));
+            let newBingos = 0;
             
             // Check rows
             for (let row = 0; row < 5; row++) {
-                if (clicked.slice(row * 5, row * 5 + 5).every(Boolean)) {
-                    showWin();
-                    return;
+                const lineKey = `row-${row}`;
+                if (!completedLines.has(lineKey) && clicked.slice(row * 5, row * 5 + 5).every(Boolean)) {
+                    completedLines.add(lineKey);
+                    newBingos++;
                 }
             }
             
             // Check columns
             for (let col = 0; col < 5; col++) {
-                if ([0, 1, 2, 3, 4].every(row => clicked[row * 5 + col])) {
-                    showWin();
-                    return;
+                const lineKey = `col-${col}`;
+                if (!completedLines.has(lineKey) && [0, 1, 2, 3, 4].every(row => clicked[row * 5 + col])) {
+                    completedLines.add(lineKey);
+                    newBingos++;
                 }
             }
             
             // Check diagonals
-            if ([0, 6, 12, 18, 24].every(i => clicked[i]) || 
-                [4, 8, 12, 16, 20].every(i => clicked[i])) {
+            const diag1Key = 'diag-1';
+            const diag2Key = 'diag-2';
+            if (!completedLines.has(diag1Key) && [0, 6, 12, 18, 24].every(i => clicked[i])) {
+                completedLines.add(diag1Key);
+                newBingos++;
+            }
+            if (!completedLines.has(diag2Key) && [4, 8, 12, 16, 20].every(i => clicked[i])) {
+                completedLines.add(diag2Key);
+                newBingos++;
+            }
+            
+            if (newBingos > 0) {
+                bingoCount += newBingos;
                 showWin();
-                return;
+                updateBingoCounter();
             }
         }
 
         function showWin() {
             const winMessage = document.getElementById('winMessage');
             const t = translations[selectedLanguage];
-            winMessage.innerHTML = t.winMessage.replace('{name}', playerName);
+            
+            if (bingoCount === 1) {
+                winMessage.innerHTML = t.winMessage.replace('{name}', playerName);
+                winMessage.classList.remove('multiple');
+            } else {
+                winMessage.innerHTML = t.multipleBingoText.replace('{count}', bingoCount);
+                winMessage.classList.add('multiple');
+            }
+            
             winMessage.style.display = 'block';
             winMessage.classList.add('celebration');
             
             setTimeout(() => {
                 winMessage.classList.remove('celebration');
             }, 3000);
+        }
+        
+        function updateBingoCounter() {
+            const counter = document.getElementById('bingoCounter');
+            const countText = document.getElementById('bingoCountText');
+            const t = translations[selectedLanguage];
+            
+            if (bingoCount > 0) {
+                counter.style.display = 'block';
+                countText.textContent = t.bingoCountText.replace('{count}', bingoCount);
+            } else {
+                counter.style.display = 'none';
+            }
         }
 
         function clearBoard() {
@@ -1418,7 +1516,10 @@
                 square.querySelector('.friend-name').textContent = '';
             });
             usedFriends.clear(); // ล้างรายชื่อเพื่อนที่ใช้แล้ว
+            bingoCount = 0; // รีเซ็ตจำนวน bingo
+            completedLines.clear(); // ล้างเส้นที่ bingo แล้ว
             document.getElementById('winMessage').style.display = 'none';
+            updateBingoCounter();
         }
 
         // Event listeners
